@@ -14,10 +14,10 @@ Estilo: moderno inspirado en *Streets of Rage*, gráficos high-quality painted.
 
 1. Clona o descarga este repositorio
 2. Abre Godot 4
-3. Pulsa **Import** → selecciona la carpeta `BeatnUp` (donde está el `project.godot`)
-4. Pulsa **Run** (F5) para probar el movimiento
+3. Pulsa **Import** → selecciona la carpeta del proyecto
+4. Pulsa **Run** (F5)
 
-## Controles actuales (prototipo)
+## Controles
 
 | Acción       | Teclado          |
 |--------------|------------------|
@@ -26,34 +26,50 @@ Estilo: moderno inspirado en *Streets of Rage*, gráficos high-quality painted.
 | Puñetazo     | J                |
 | Patada       | K                |
 
+## Multijugador local (LAN)
+
+1. En el menú principal elige personaje (Raúl o Vanesa)
+2. **Host**: pulsa "Crear partida" (abre el puerto 7777)
+3. **Cliente**: escribe la IP del host (o déjala vacía para localhost) y pulsa "Unirse"
+4. Cada jugador controla su propio personaje en la misma partida
+
+También hay botón de **Jugar solo** para probar offline.
+
 ## Estructura del proyecto
 
 ```
 BeatnUp/
 ├── project.godot
 ├── scenes/
-│   ├── Main.tscn          ← Escena principal de prueba
-│   └── Player.tscn        ← Personaje jugable
+│   ├── MainMenu.tscn     ← Selección de personaje + Host/Join
+│   ├── Game.tscn         ← Nivel de prueba
+│   └── Player.tscn       ← Personaje jugable
 ├── scripts/
-│   └── player.gd          ← Lógica de movimiento y combate básico
+│   ├── main_menu.gd
+│   ├── game.gd
+│   ├── game_state.gd     ← Autoload
+│   └── player.gd
 ├── assets/
 │   ├── sprites/
-│   │   ├── raul/          ← Aquí van los sprites de Raúl
-│   │   └── vanesa/        ← Aquí van los sprites de Vanesa
+│   │   ├── raul/
+│   │   └── vanesa/
 │   └── audio/
 └── README.md
 ```
 
 ## Próximos pasos
 
-- [ ] Meter los sprites de Idle / Walk / Attack
+- [ ] Meter los sprites laterales de Idle / Walk / Attack
 - [ ] Añadir AnimatedSprite2D con las secuencias
-- [ ] Sistema de combos
+- [ ] Sistema de combos y hitboxes
 - [ ] Enemigos básicos
 - [ ] Primera fase (Neón District - Gran Vía)
 - [ ] Export Android
+- [ ] Mejorar sincronización de red (posiciones, ataques)
 
-## Notas
+## Notas técnicas
 
-El movimiento actual usa un **CharacterBody2D** clásico de side-scroller con gravedad, salto y fricción.  
-Cuando tengamos los sprites laterales, solo hay que asignarlos al `AnimatedSprite2D` del Player y conectar las animaciones en el script.
+- Multijugador con **ENet** (puerto 7777)
+- Cada peer es authority de su propio personaje
+- Los placeholders de color cambian según el personaje elegido (azul = Raúl, rosa = Vanesa)
+- Velocidad y salto ligeramente diferentes entre personajes

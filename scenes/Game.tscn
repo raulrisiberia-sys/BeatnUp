@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://game_beatnup"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://player_beatnup" path="res://scenes/Player.tscn" id="2_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(4000, 80)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -800.0
+offset_top = -300.0
+offset_right = 3200.0
+offset_bottom = 800.0
+color = Color(0.05, 0.05, 0.12, 1)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(1000, 650)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="GroundVisual" type="ColorRect" parent="Ground"]
+offset_left = -2000.0
+offset_top = -40.0
+offset_right = 2000.0
+offset_bottom = 40.0
+color = Color(0.15, 0.15, 0.22, 1)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="StatusLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 700.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_font_sizes/font_size = 18
+text = "Cargando..."
+
+[node name="HelpLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 680.0
+offset_right = 700.0
+offset_bottom = 710.0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "A/D o ←→ mover | Espacio saltar | J puño | K patada"

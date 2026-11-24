@@ -8,9 +8,13 @@ config_version=5
 
 config/name="Beat n Up"
 config/description="2D side-scrolling beat 'em up set in neon Madrid. Starring Raúl and Vanesa."
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://scripts/game_state.gd"
 
 [display]
 
